@@ -1,29 +1,28 @@
-const dotenv = require('dotenv');
-dotenv.config();
-
-const express = require('express');
-const connectDB = require('./config/database');
-const config = require('./config/config');
-const globalErrorHandler = require('./middlewares/globalErrorHandler');
-const cookieParser = require('cookie-parser');
+const express = require("express");
+const connectDB = require("./config/database");
+const config = require("./config/config");
+const globalErrorHandler = require("./middlewares/globalErrorHandler");
+const cookieParser = require("cookie-parser");
+const cors = require("cors");
 const app = express();
-const cors = require('cors');
+
 
 const PORT = config.port;
-connectDB(); 
+connectDB();
 
-// Middleware   
+// Middlewares
 app.use(cors({
-    credentials: true, // Allow cookies to be sent
+    credentials: true,
     origin: ['http://localhost:5173']
-}));
-app.use(express.json()); // Parse JSON bodies
-app.use(cookieParser()); // Parse cookies
+}))
+app.use(express.json()); // parse incoming request in json format
+app.use(cookieParser())
+
 
 // Root Endpoint
-app.get("/", (req, res) => {
-    res.json({message: "Hello from POS Server!"});
-});
+app.get("/", (req,res) => {
+    res.json({message : "Hello from POS Server!"});
+})
 
 // Other Endpoints
 app.use("/api/user", require("./routes/userRoute"));
@@ -34,7 +33,8 @@ app.use("/api/payment", require("./routes/paymentRoute"));
 // Global Error Handler
 app.use(globalErrorHandler);
 
+
 // Server
 app.listen(PORT, () => {
-    console.log(`POS Server is running on http://localhost:${PORT}`);
-});
+    console.log(`☑️  POS Server is listening on port ${PORT}`);
+})

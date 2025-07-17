@@ -1,4 +1,3 @@
-
 const Table = require("../models/tableModel");
 const createHttpError = require("http-errors");
 const mongoose = require("mongoose")
@@ -6,6 +5,7 @@ const mongoose = require("mongoose")
 const addTable = async (req, res, next) => {
   try {
     const { tableNo, seats } = req.body;
+    console.log(req.body)
     if (!tableNo) {
       const error = createHttpError(400, "Please provide table No!");
       return next(error);
@@ -33,6 +33,8 @@ const getTables = async (req, res, next) => {
       path: "currentOrder",
       select: "customerDetails"
     });
+
+    console.log(await Table.find())
     res.status(200).json({ success: true, data: tables });
   } catch (error) {
     next(error);

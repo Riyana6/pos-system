@@ -21,8 +21,6 @@ export default function Login() {
     const handleSubmit = (e) => {
         e.preventDefault();
         loginMutation.mutate(formData);
-        // Handle form submission logic here
-        console.log(formData);
     }
 
     const loginMutation = useMutation({

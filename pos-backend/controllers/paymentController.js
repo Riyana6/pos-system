@@ -1,4 +1,3 @@
-
 const Razorpay = require("razorpay");
 const config = require("../config/config");
 const crypto = require("crypto");
@@ -21,7 +20,6 @@ const createOrder = async (req, res, next) => {
     const order = await razorpay.orders.create(options);
     res.status(200).json({ success: true, order });
   } catch (error) {
-    console.log(error);
     next(error);
   }
 };
